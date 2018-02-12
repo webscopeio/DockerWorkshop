@@ -1,0 +1,9 @@
+.App {
+  display: flex;
+  height: 100vh;
+}
+
+.App-logo {
+  margin: auto;
+  height: 150px;
+}
