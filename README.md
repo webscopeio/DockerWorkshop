@@ -194,6 +194,19 @@ So we `ADD` this `src` directory into our image. This directory contain the chan
 docker build -t my-app <DIR_WITH_DOCKERFILE>
 ```
 
+In case we are developing the application and don't want to build the image every time we make a change. So how we can deal with this?
+There comes the [Bind mount](https://docs.docker.com/storage/bind-mounts/) to save us. Let's say we just want to develop the app on the host but run it in a container without need of rebuilding the image on every change. In case of `create-react-app` we can do the following.
+
+Your host working directory should be the root directory of your application.
+```sh
+$ docker run -it -p 3000:3000 -v type=bind,source=$PWD,target=/app node:alpine sh
+# in container's shell
+$ cd /app
+$ yarn # if you haven't instaled packages yet
+$ yarn start
+```
+Now your host working directory (`$PWD`) is the same as `/app` directory inside the container. You can change the code of the app on your host and still see the changes from container :tada:.
+
 Ok, so if we are satisfied with our image we can publish it for other people to also enjoy it.
 
 We need prefix the image with our `docker username`, so how you've registered in [Docker Cloud](https://cloud.docker.com).
