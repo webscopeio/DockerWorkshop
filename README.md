@@ -43,13 +43,13 @@ To download `majodurco/hello_webscope` docker image from [Docker Cloud](https://
 ```sh
 $ docker pull majodurco/hello_webscope
 ```
-To show list of your local images
+To show the list of your local images
 
 [Images reference](https://docs.docker.com/engine/reference/commandline/images/)
 ```sh
 $ docker images
 ```
-Now you should see `majodurco/hello_webscope` in list of local images
+Now you should see `majodurco/hello_webscope` in the list of local images
 ```
 REPOSITORY                 TAG      IMAGE ID          CREATED        SIZE
 majodurco/hello_webscope   latest   <IMAGE>           <TIME>         4.15MB
@@ -63,7 +63,7 @@ $ docker run majodurco/hello_webscope
 Do you recognize the logo? :sunglasses:
 
 _NOTE_ 
-We could just `run` command and docker will automatically donwload all images needed. We use `pull` just for educational purposes.
+We could just `run` command and docker will automatically download all images needed. We use `pull` just for educational purposes.
 
 Let's examine this image closely.
 
@@ -71,7 +71,7 @@ Let's examine this image closely.
 ```sh
 $ docker run -it majodurco/hello_webscope sh
 ```
-So what we just did? We run specific command `sh` inside `majodurco/hello_webscope` image and with that we created **container**(process on the host machine).
+So what we just did? We run specific command `sh` inside `majodurco/hello_webscope` image and with that, we created **container**(process on the host machine).
 
 If you still haven't close shell yet you can see one container running
 
@@ -91,7 +91,7 @@ A Dockerfile is a text file that is kind of a recipe for docker to know how to b
 You can find `Dockerfile` to `majodurco/hello_webscope` image in `/hello_webscope/Dockerfile`.
 
 `FROM alpine` [FROM reference](https://docs.docker.com/engine/reference/builder/#from) 
-sets [alpine](https://hub.docker.com/_/alpine/) as base image, which is image on which we build our image.
+sets [alpine](https://hub.docker.com/_/alpine/) as the base image, which is the image on which we build our image.
 
 `ADD webscope_logo.txt /webscope_logo.txt` [ADD reference](https://docs.docker.com/engine/reference/builder/#add)
 Add `webscope_logo.txt` which you can see in `hello_webscope` directory inside image's root directory with the same name.
@@ -102,9 +102,9 @@ Sets specific command as default for container execution.
 ## Create your own image from scratch
 
 We are going to containerize [create-react-app](https://github.com/facebook/create-react-app).
-In order to do so we need to create `Dockerfile` for docker to know how build our new image.
+In order to do so, we need to create `Dockerfile` for docker to know how to build our new image.
 
-This is how it may looks:
+This is how it may look:
 ```docker
 FROM node:alpine
 
@@ -117,10 +117,10 @@ CMD npm start
 we've seen something similar before just instead of `alpine` we now have `node:alpine` [Node docker hub](https://hub.docker.com/_/node/) it's because `alpine` image doesn't have node.js installed. We could play with it install it and use that, but why when somebody did it before us.
 
 `RUN npx create-react-app my-app` [RUN reference](https://docs.docker.com/engine/reference/builder/#run) 
-with `RUN` you can execute any command on top of the current image and commit the changes. These commands run only durring build phase of an image.
+with `RUN` you can execute any command on top of the current image and commit the changes. These commands run only during build phase of an image.
 
 `WORKDIR my-app` [WORKDIR reference](https://docs.docker.com/engine/reference/builder/#workdir) 
-we just set `/my-app` as working directory so in instructions like `RUN`, `CMD`, `ADD` we don't have to specify path from the root `/`.
+we just set `/my-app` as working directory so in instructions like `RUN`, `CMD`, `ADD` we don't have to specify the path from the root `/`.
 
 `EXPOSE 3000` [EXPOSE reference](https://docs.docker.com/engine/reference/builder/#expose) 
 this instruction does not actually publish the port. It functions as a type of documentation between the person who builds the image and the person who runs the container.
@@ -195,7 +195,7 @@ docker build -t my-app <DIR_WITH_DOCKERFILE>
 ```
 
 In case we are developing the application and don't want to build the image every time we make a change. So how we can deal with this?
-There comes the [Bind mount](https://docs.docker.com/storage/bind-mounts/) to save us. Let's say we just want to develop the app on the host but run it in a container without need of rebuilding the image on every change. In case of `create-react-app` we can do the following.
+There comes the [Bind mount](https://docs.docker.com/storage/bind-mounts/) to save us. Let's say we just want to develop the app on the host but run it in a container without the need of rebuilding the image on every change. In case of `create-react-app` we can do the following.
 
 Your host working directory should be the root directory of your application.
 ```sh
@@ -220,8 +220,8 @@ So I will write
 $ docker tag my-app majodurco/my-app
 ```
 
-And finally push this image with your username to the cloud.
-Make sure you log in before `$ docker login`.
+And finally, push this image with your username to the cloud.
+Make sure you log in to `$ docker login`.
 ```sh
 $ docker push majodurco/my-app
 ```
